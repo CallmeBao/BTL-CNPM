@@ -12,7 +12,7 @@ export default function CreateSchedulePage() {
 
     useEffect(() => {
     if (!params.classId) return;
-    fetch(`/api/Tutor/get-classes/${params.classId}`)
+    fetch(`/api/Tutor/my-classes/${params.classId}`)
         .then((res) => res.json())
         .then((json) => setData(json))
         .catch(() => setData(null));
