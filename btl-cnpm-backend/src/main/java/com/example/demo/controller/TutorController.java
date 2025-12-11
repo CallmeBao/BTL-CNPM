@@ -38,7 +38,6 @@ public class TutorController {
         Classes newClass = new Classes();
         Long userId = Long.valueOf(req.get("userId").toString());
         Tutor tutor = tutorService.getTutorProfile(userId);
-        if (userId==null) return null;
         Long newClassId = (long) tutor.numClass() + 1;
         newClass.setId(newClassId);
         newClass.setTutorMSCB(tutor.getMscb());

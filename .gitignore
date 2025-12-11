@@ -1,0 +1,13 @@
+# Node modules
+**/node_modules/
+
+# log files
+*.log
+
+# Build outputs
+**/.next/
+**/target/
+
+# IDE files
+.vscode/
+.idea/
