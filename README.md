@@ -1,48 +1,86 @@
 # Tutor Support System (TSS) - Frontend Application
 
-Tutor Support System là ứng dụng web trực tuyến được phát triển bằng Next.js, thiết kế để kết nối quy trình học tập giữa Sinh viên và Gia sư. Dự án tập trung vào việc xử lý các luồng giao diện phức tạp, áp dụng kiến trúc App Router nhằm quản lý định tuyến và tối ưu hóa việc tái sử dụng UI Component giữa các phân hệ người dùng khác nhau.
+**Course:** Software Engineering - CO3001
+<img width="2537" height="1234" alt="image" src="https://github.com/user-attachments/assets/29326fc6-4ef3-45f4-b6e5-454cd568c070" />
 
-## Công nghệ sử dụng
-* **Core:** Next.js (App Router), React
-* **Styling:** Tailwind CSS
-* **Thư viện tích hợp:** @fullcalendar/react (xử lý lịch trình)
-* **Kiến trúc UI:** Component-driven, Role-based Route Groups, Dynamic Routing
+## Project Overview
 
-## Điểm nhấn Kỹ thuật & Tính năng
+This repository contains the frontend application for the **Tutor Support System**, a comprehensive educational platform designed to connect students and tutors. Engineered using **Next.js (App Router)**, the application digitizes and streamlines the tutoring lifecycle, from discovery and matching to schedule management and real-time communication.
 
-Dự án được cấu trúc thành hai luồng giao diện chính. Bằng cách sử dụng Route Groups của Next.js, hệ thống tách biệt hoàn toàn URL và Layout cho từng vai trò người dùng nhưng vẫn đảm bảo khả năng tái sử dụng các component cốt lõi.
+The system implements role-based access control with distinct, optimized portals for both Students and Tutors. By leveraging Next.js Route Groups and Dynamic Routing, the architecture maintains a strict separation of concerns while maximizing UI component reusability across different user flows.
 
-### Phân hệ Sinh viên
-* **Bảng điều khiển (Dashboard):** Hiển thị dữ liệu học tập và lịch trình tổng quan trong ngày.
-* **Bộ lọc Tìm kiếm:** Giao diện tìm kiếm gia sư tích hợp các form tiêu chí linh hoạt.
-* **Lịch học tương tác:** Tích hợp và tùy biến FullCalendar để render lịch cá nhân theo nhiều góc nhìn (Tháng/Tuần/Ngày).
-* **Quản lý Lớp học (Dynamic Routing):** Xử lý định tuyến động cho chi tiết từng lớp học. Giao diện áp dụng cấu trúc Tab để chuyển đổi mượt mà giữa các nhóm nội dung (Bài giảng, Bài kiểm tra, Lịch hẹn) mà không làm gián đoạn trải nghiệm người dùng.
+## Features & Scope
 
-### Phân hệ Gia sư
-* **Bảng quản trị:** Theo dõi số liệu học viên, giờ dạy và các yêu cầu đăng ký đang chờ xử lý.
-* **Quản lý Form & Dữ liệu:** Xây dựng hệ thống form và modal phức tạp phục vụ các nghiệp vụ quản lý: tạo lớp học mới, tải lên tài liệu giảng dạy, và thiết lập ca học.
-* **Không gian làm việc chuyên sâu:** Giao diện quản lý chi tiết lớp học được thiết kế tối ưu cho việc điều hướng, tích hợp Action Sidebar để thực hiện nhanh các thao tác quản trị.
+### 1. Student Portal (`app/Sinhvien`)
+A dedicated workspace enabling students to find academic support and manage their learning journey.
 
-### Giao diện Nhắn tin dùng chung (Shared Chat UI)
-* **Kiến trúc Component:** Cấu trúc layout chat hai cột linh hoạt (danh sách hội thoại và khung chat chi tiết).
-* **Tối ưu mã nguồn (DRY):** Tách biệt tầng UI và luồng xử lý dữ liệu để tái sử dụng toàn bộ giao diện chat này cho cả hai phân hệ. Trạng thái và nội dung của từng luồng hội thoại được quản lý chặt chẽ thông qua hệ thống Dynamic Routes của Next.js.
+* **Student Dashboard:** Provides a high-level summary of daily schedules and key academic metrics.
+* **Tutor Discovery (`/tim-tutor`):** A robust two-column search interface featuring dynamic filters to help students find suitable tutors based on specific criteria.
+* **Class & Schedule Management:**
+  * **My Classes (`/my-classes`):** Displays enrolled classes utilizing a responsive grid layout.
+  * **Class Details (`[classId]`):** A dynamic, tab-based interface that allows seamless navigation between Lectures, Quizzes, and Appointments without triggering page reloads.
+  * **Interactive Calendar (`/schedule`):** Integrates FullCalendar to visualize personal learning schedules across Month, Week, and Day views.
+* **Program Registration (`/dang-ky`):** A streamlined application form with built-in validation and a success confirmation flow.
 
-## Cấu trúc thư mục nền tảng
+### 2. Tutor Portal (`app/Tutor`)
+A comprehensive management interface empowering tutors to organize classes, track student progress, and control their availability.
 
-Dự án tuân thủ nguyên tắc phân tách rõ ràng giữa định tuyến, giao diện dùng chung và các module chức năng:
+* **Tutor Dashboard:** Monitors critical metrics such as total enrolled students, accumulated teaching hours, and pending registration approvals.
+* **Class Administration (`/register-class` & `/my-classes`):**
+  * **Creation Modals:** Intuitive interfaces to establish new tutoring classes and configure initial settings.
+  * **Session Management (`[classId]`):** Deep-dive management tools for specific classes. Tutors can add lectures, schedule appointments, and manage student rosters via categorized tabs.
+  * **Action Hub:** Quick-access tools (`AddLectureModal`, `AddScheduleModal`, `ManageMaterialsModal`) designed to expedite administrative tasks.
+* **Teaching Schedule (`/schedule`):** A centralized FullCalendar interface dedicated exclusively to managing teaching commitments and availability.
 
-```text
-src/
-├── app/
-│   ├── Sinhvien/               # Route Group xử lý định tuyến cho Sinh viên
-│   │   ├── layout.tsx          # Shared layout: Sidebar, Header
-│   │   ├── my-classes/
-│   │   │   └── [classId]/      # Dynamic routing cho chi tiết lớp
-│   │   └── tin-nhan/
-│   ├── Tutor/                  # Route Group xử lý định tuyến cho Gia sư
-│   │   ├── layout.tsx
-│   │   └── my-classes/
-├── components/                 # Reusable UI Components
-│   ├── layout/                 # Các thành phần dàn trang (Sidebar, Dropdown)
-│   ├── shared/                 # Các component chức năng dùng chung (FullCalendar, ChatWindow)
-│   └── modals/                 # Hệ thống thao tác nhanh (Tạo lớp, Đăng ký)
+### 3. Shared Communication Core (`/tin-nhan`)
+A unified, real-time messaging system utilized by both Students and Tutors.
+
+* **Interface Architecture:** Features a flexible two-column layout consisting of a conversation list sidebar and a dynamic chat window (`[peopleId]`).
+* **Optimized Reusability (DRY):** The messaging logic and UI components (including `UserProfileModal`) are highly modularized. They are shared across both the Student and Tutor route groups, demonstrating efficient code reuse and maintainability.
+
+## Technical Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Core Framework** | Next.js (App Router) |
+| **UI Library** | React |
+| **Styling** | Tailwind CSS |
+| **Advanced Components** | `@fullcalendar/react` (Schedule & Time Management) |
+| **Architecture** | Component-driven, Role-based Route Groups, Dynamic Routing |
+
+## Installation & Setup Guide
+
+### Prerequisites
+Before running the project, ensure you have the following installed:
+* **Node.js**: Version 18.17.0 or higher.
+* **Package Manager**: `npm`, `yarn`, or `pnpm`.
+* **Backend API**: Ensure the accompanying Spring Boot backend service for the Tutor Support System is running and accessible.
+
+### Local Development Setup
+
+## Installation & Setup Guide
+
+### Prerequisites
+Before running the project, ensure you have the following installed:
+
+- **Node.js**: Version 18.17.0 or higher  
+- **Package Manager**: `npm`, `yarn`, or `pnpm`  
+- **Backend API**: Ensure the accompanying Spring Boot backend service is running  
+
+---
+
+### Local Development Setup
+
+#### 1. Clone the repository:
+```bash
+git clone https://github.com/CallmeBao/BTL-CNPM.git
+cd BTL-CNPM
+```
+#### 2. Install dependencies: ####
+```bash
+npm install
+```
+#### 3. Run the development server ####
+```bash
+npm run dev
+```
