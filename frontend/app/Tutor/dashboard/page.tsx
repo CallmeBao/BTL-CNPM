@@ -6,7 +6,7 @@ export default function Dashboard() {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    fetch("/api/Tutor/DashBoard")
+    fetch("/api/Tutor/dashboard")
       .then((res) => res.json())
       .then((json) => setData(json));
   }, []);

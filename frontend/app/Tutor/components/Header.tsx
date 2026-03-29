@@ -9,7 +9,7 @@ export default function Header() {
   const pathname = usePathname();
 
   const titleMap: Record<string, string> = {
-    "/Tutor/Dashboard": "Bảng điều khiển",
+    "/Tutor/dashboard": "Bảng điều khiển",
     "/Tutor/Schedule": "Lịch dạy",
     "/Tutor/my-classes": "Lớp học của tôi", 
     "/Tutor/my-classes/detail": "Chi tiết lớp học", 

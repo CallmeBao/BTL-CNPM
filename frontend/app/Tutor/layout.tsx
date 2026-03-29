@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 
 // Hàm helper để xác định mục active và tiêu đề
 const getPathDetails = (pathname: string) => {
-    if (pathname.includes('/Dashboard')) {
+    if (pathname.includes('/dashboard')) {
         return { activeItem: 'Bảng điều khiển', title: 'Bảng điều khiển' };
     }
     if (pathname.includes('/Schedule')) {

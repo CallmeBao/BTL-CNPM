@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { name: "Bảng điều khiển", icon: LayoutDashboard, href: "/Tutor/Dashboard" },
+  { name: "Bảng điều khiển", icon: LayoutDashboard, href: "/Tutor/dashboard" },
   { name: "Lịch dạy", icon: CalendarDays, href: "/Tutor/Schedule" },
   { name: "Lớp học của tôi", icon: Users, href: "/Tutor/my-classes" },
   { name: "Đăng ký lớp học", icon: GraduationCap, href: "/Tutor/register-class" },
