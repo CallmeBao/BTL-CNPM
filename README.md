@@ -1,160 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tutor Support System (TSS) - Frontend Application
 
-## Getting Started
+Tutor Support System là ứng dụng web trực tuyến được phát triển bằng Next.js, thiết kế để kết nối quy trình học tập giữa Sinh viên và Gia sư. Dự án tập trung vào việc xử lý các luồng giao diện phức tạp, áp dụng kiến trúc App Router nhằm quản lý định tuyến và tối ưu hóa việc tái sử dụng UI Component giữa các phân hệ người dùng khác nhau.
 
-First, run the development server:
+## Công nghệ sử dụng
+* **Core:** Next.js (App Router), React
+* **Styling:** Tailwind CSS
+* **Thư viện tích hợp:** @fullcalendar/react (xử lý lịch trình)
+* **Kiến trúc UI:** Component-driven, Role-based Route Groups, Dynamic Routing
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Điểm nhấn Kỹ thuật & Tính năng
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dự án được cấu trúc thành hai luồng giao diện chính. Bằng cách sử dụng Route Groups của Next.js, hệ thống tách biệt hoàn toàn URL và Layout cho từng vai trò người dùng nhưng vẫn đảm bảo khả năng tái sử dụng các component cốt lõi.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Phân hệ Sinh viên
+* **Bảng điều khiển (Dashboard):** Hiển thị dữ liệu học tập và lịch trình tổng quan trong ngày.
+* **Bộ lọc Tìm kiếm:** Giao diện tìm kiếm gia sư tích hợp các form tiêu chí linh hoạt.
+* **Lịch học tương tác:** Tích hợp và tùy biến FullCalendar để render lịch cá nhân theo nhiều góc nhìn (Tháng/Tuần/Ngày).
+* **Quản lý Lớp học (Dynamic Routing):** Xử lý định tuyến động cho chi tiết từng lớp học. Giao diện áp dụng cấu trúc Tab để chuyển đổi mượt mà giữa các nhóm nội dung (Bài giảng, Bài kiểm tra, Lịch hẹn) mà không làm gián đoạn trải nghiệm người dùng.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Phân hệ Gia sư
+* **Bảng quản trị:** Theo dõi số liệu học viên, giờ dạy và các yêu cầu đăng ký đang chờ xử lý.
+* **Quản lý Form & Dữ liệu:** Xây dựng hệ thống form và modal phức tạp phục vụ các nghiệp vụ quản lý: tạo lớp học mới, tải lên tài liệu giảng dạy, và thiết lập ca học.
+* **Không gian làm việc chuyên sâu:** Giao diện quản lý chi tiết lớp học được thiết kế tối ưu cho việc điều hướng, tích hợp Action Sidebar để thực hiện nhanh các thao tác quản trị.
 
-## Learn More
+### Giao diện Nhắn tin dùng chung (Shared Chat UI)
+* **Kiến trúc Component:** Cấu trúc layout chat hai cột linh hoạt (danh sách hội thoại và khung chat chi tiết).
+* **Tối ưu mã nguồn (DRY):** Tách biệt tầng UI và luồng xử lý dữ liệu để tái sử dụng toàn bộ giao diện chat này cho cả hai phân hệ. Trạng thái và nội dung của từng luồng hội thoại được quản lý chặt chẽ thông qua hệ thống Dynamic Routes của Next.js.
 
-To learn more about Next.js, take a look at the following resources:
+## Cấu trúc thư mục nền tảng
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Dự án tuân thủ nguyên tắc phân tách rõ ràng giữa định tuyến, giao diện dùng chung và các module chức năng:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-# Module Sinh Viên (Student Portal)
-
-Module quản lý giao diện và luồng hoạt động của **Sinh Viên** trong hệ thống Tutor Support System.
-
-## Cấu trúc thư mục
-
-Toàn bộ luồng được quản lý thông qua *route group* `app/Sinhvien/`.
-## Chức năng & Components chính
-app/
-└── Sinhvien/
-    ├── layout.tsx          (Khung chung: Sidebar + Header)
-    ├── page.tsx            (Trang mặc định, ví dụ: trang chào mừng?)
-    ├── dashboard/
-    │   └── page.tsx        
-    ├── schedule/
-    │   └── page.tsx        
-    ├── my-classes/
-    │   ├── page.tsx        
-    │   └── [classId]/
-    │       └── page.tsx    
-    ├── tin-nhan/
-    │   ├── layout.tsx      
-    │   ├── page.tsx        
-    │   └── [peopleId]/
-    │       └── page.tsx    
-    ├── tim-tutor/
-    │   └── page.tsx        
-    └── dang-ky/
-        └── page.tsx
-
-* **Layout Chung (`/layout.tsx`)**
-    * **Chức năng:** Cung cấp khung (Sidebar + Header) nhất quán cho toàn bộ module. Tự động highlight mục menu và hiển thị tiêu đề trang.
-    * **Components:** `Sidebar`, `AccountDropdown`, `NotificationDropdown`.
-
-* **Bảng điều khiển (`/dashboard`)**
-    * **Chức năng:** Trang chủ, hiển thị các thẻ thống kê nhanh và lịch học hôm nay.
-
-* **Đăng ký (`/dang-ky`)**
-    * **Chức năng:** Form cho phép sinh viên đăng ký tham gia chương trình. Hiển thị popup khi gửi thành công.
-    * **Components:** `RegistrationForm`, `SuccessModal`.
-
-* **Tìm Tutor (`/tim-tutor`)**
-    * **Chức năng:** Bố cục 2 cột cho phép tìm kiếm và lọc danh sách Tutor.
-    * **Components:** `TutorList`, `TutorCriteriaForm`.
-
-* **Lịch học (`/schedule`)**
-    * **Chức năng:** Hiển thị lịch học cá nhân đầy đủ (Tháng/Tuần/Ngày).
-    * **Components:** Tích hợp thư viện `@fullcalendar/react`.
-
-* **Lớp học của tôi (`/my-classes`)**
-    * **Chức năng:** Hiển thị danh sách các lớp học đã tham gia dưới dạng lưới (grid).
-
-* **Chi tiết Lớp học (`/my-classes/[classId]`)**
-    * **Chức năng:** Trang chi tiết động, hiển thị nội dung lớp học (Bài giảng, Bài kiểm tra, Lịch hẹn) theo dạng Tab.
-
-* **Tin nhắn (`/tin-nhan`)**
-    * **Chức năng:** Hệ thống chat 2 cột (dynamic route).
-    * **`layout.tsx`**: Chứa `ChatSidebar` (danh sách hội thoại).
-    * **`/[peopleId]/page.tsx`**: Chứa `ChatWindow` (khung chat chi tiết) và các modal chức năng.
-    * **Components:** `UserProfileModal`.
-
-    # Module Tutor (Tutor Portal)
-
-Module quản lý giao diện và luồng hoạt động của **Tutor (Giảng viên)** trong hệ thống Tutor Support System. Luồng này tập trung vào việc quản lý, tạo lập và giám sát các lớp học.
-
-## Cấu trúc thư mục
-
-Toàn bộ luồng của Tutor được quản lý thông qua *route group* `app/Tutor/`.
-
-## Chức năng & Components chính
-
-app/ 
-└── Tutor/  ├── layout.tsx (Khung chung: Sidebar Header)       
-            ├── page.tsx (Trang mặc định, ví dụ: /Tutor) 
-            ├── dashboard/ 
-            │       └── page.tsx
-            ├── schedule/ 
-            │       └── page.tsx
-            ├── my-classes/ 
-            │       ├── page.tsx
-            │       └── [classId]/ 
-            │               └── page.tsx
-            ├── register-class/ 
-            │           ├── page.tsx
-            │           └── [classId]/ 
-            │                   └── page.tsx    
-            └── tin-nhan/ 
-                    ├── layout.tsx
-                    ├── page.tsx
-                    └── [peopleId]/ 
-                            └── page.tsx
-
-* **Layout Chung (`/layout.tsx`)**
-    * **Chức năng:** Cung cấp khung (Sidebar + Header) nhất quán cho toàn bộ module.
-    * **Components:** `SidebarTutor`, `AccountDropdown`, `NotificationDropdown`.
-
-* **Bảng điều khiển (`/dashboard`)**
-    * **Chức năng:** Trang chủ, hiển thị thống kê (Tổng học sinh, Giờ dạy,...), lịch dạy hôm nay, và mục "Cần xử lý" (phê duyệt yêu cầu).
-
-* **Đăng ký lớp học (`/register-class`)**
-    * **Chức năng:** Hiển thị danh sách các lớp học đang quản lý và cho phép tạo lớp học mới thông qua một modal.
-    * **Components:** `CreateClassModal`.
-
-* **Tạo lịch học (`/register-class/[classId]`)**
-    * **Chức năng:** Trang form chi tiết (dynamic route) để tạo một buổi học/buổi tư vấn mới cho một lớp học cụ thể.
-
-* **Lịch dạy (`/schedule`)**
-    * **Chức năng:** Hiển thị lịch dạy cá nhân đầy đủ (Tháng/Tuần/Ngày).
-    * **Components:** Tích hợp thư viện `@fullcalendar/react`.
-
-* **Lớp học của tôi (`/my-classes`)**
-    * **Chức năng:** Hiển thị danh sách các lớp học (grid view) mà Tutor phụ trách.
-
-* **Chi tiết Lớp học (`/my-classes/[classId]`)**
-    * **Chức năng:** Trung tâm quản lý chính. Trang chi tiết động với giao diện Tab (Bài giảng, Bài kiểm tra, Lịch hẹn, Danh sách Sinh viên).
-    * **Các chức năng quản lý (Modal):**
-        * "Hành động nhanh" ở sidebar bên phải.
-        * Các nút "Thêm mới" trong từng tab.
-    * **Components:** `AddLectureModal`, `AddScheduleModal`, `SendNotificationModal`, `ManageMaterialsModal`.
-
-* **Tin nhắn (`/tin-nhan`)**
-    * **Chức năng:** Hệ thống chat 2 cột (dynamic route), tái sử dụng hoàn toàn logic của module Sinh viên.
-    * **Components:** `UserProfileModal`.
+```text
+src/
+├── app/
+│   ├── Sinhvien/               # Route Group xử lý định tuyến cho Sinh viên
+│   │   ├── layout.tsx          # Shared layout: Sidebar, Header
+│   │   ├── my-classes/
+│   │   │   └── [classId]/      # Dynamic routing cho chi tiết lớp
+│   │   └── tin-nhan/
+│   ├── Tutor/                  # Route Group xử lý định tuyến cho Gia sư
+│   │   ├── layout.tsx
+│   │   └── my-classes/
+├── components/                 # Reusable UI Components
+│   ├── layout/                 # Các thành phần dàn trang (Sidebar, Dropdown)
+│   ├── shared/                 # Các component chức năng dùng chung (FullCalendar, ChatWindow)
+│   └── modals/                 # Hệ thống thao tác nhanh (Tạo lớp, Đăng ký)
